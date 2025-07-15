@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chess Game</title>
+    <link rel="stylesheet" href="chess.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/@chrisoakman/chessboardjs@1.0.0/dist/chessboard-1.0.0.min.css">
+</head>
+<body>
+    <!-- Tournament Setup Panel -->
+    <div class="tournament-setup-panel">
+        <h2>Tournament Setup</h2>
+        <div class="tournament-form">
+            <div class="player-selection">
+                <select id="playerSelect" class="player-select">
+                    <option value="">Select a player</option>
+                </select>
+                <button id="addSelectedPlayerBtn">Add Player</button>
+            </div>
+            <div id="registeredNamesList" style="font-size: 0.95em; color: #888; margin-bottom: 8px;"></div>
+            <button id="startTournamentBtn">Start Tournament</button>
+        </div>
+        <div class="registered-players">
+            <h3>Registered Players</h3>
+            <table id="playersTable">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Rating</th>
+                        <th>Wins</th>
+                        <th>Losses</th>
+                        <th>Points</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Players will be dynamically added here -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="game-container">
+        <!-- Game Info Panel -->
+        <div class="game-info-panel">
+            <div class="player-info white-player">
+                <div class="player-name">White</div>
+                <div class="player-timer">10:00</div>
+                <div class="player-rating">Rating: 1</div>
+            </div>
+            <div class="game-controls">
+                <button id="newGameBtn" class="control-btn"><i class="fas fa-plus"></i> New Game</button>
+                <button id="undoBtn" class="control-btn"><i class="fas fa-undo"></i> Undo</button>
+                <button id="resignBtn" class="control-btn"><i class="fas fa-flag"></i> Resign</button>
+            </div>
+            <div class="player-info black-player">
+                <div class="player-name">Black</div>
+                <div class="player-timer">10:00</div>
+                <div class="player-rating">Rating: 1</div>
+            </div>
+        </div>
+
+        <!-- Main Game Area -->
+        <div class="game-area">
+            <!-- Captured Pieces Display -->
+            <div class="captured-pieces white-captured">
+                <h3>Captured by White</h3>
+                <div class="captured-container"></div>
+            </div>
+
+            <!-- Chessboard -->
+            <div class="chessboard-container">
+                <div id="board"></div>
+            </div>
+
+            <!-- Captured Pieces Display -->
+            <div class="captured-pieces black-captured">
+                <h3>Captured by Black</h3>
+                <div class="captured-container"></div>
+            </div>
+        </div>
+
+        <!-- Game Details Panel -->
+        <div class="game-details-panel">
+            <div class="move-history">
+                <h3>Move History</h3>
+                <div class="moves-container"></div>
+            </div>
+            <div class="game-status">
+                <h3>Game Status</h3>
+                <div class="status-message">Game in progress</div>
+            </div>
+            <div class="rules-panel">
+                <h3>Chess Rules</h3>
+                <div class="rules-content">
+                    <p><strong>Basic Rules:</strong></p>
+                    <ul>
+                        <li>White moves first</li>
+                        <li>Each piece moves in a specific way</li>
+                        <li>Capture opponent's pieces by moving to their square</li>
+                        <li>Checkmate wins the game</li>
+                    </ul>
+                    <p><strong>Special Moves:</strong></p>
+                    <ul>
+                        <li>Castling: King and rook move together</li>
+                        <li>En passant: Special pawn capture</li>
+                        <li>Promotion: Pawn to any piece</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Game Over Modal -->
+    <div id="gameOverModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Game Over</h2>
+            <div class="result-message"></div>
+            <div class="modal-actions">
+                <button id="newGameModalBtn" class="modal-btn">New Game</button>
+                <button id="analysisBtn" class="modal-btn">View Analysis</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.10.2/chess.min.js"></script>
+    <script src="https://unpkg.com/@chrisoakman/chessboardjs@1.0.0/dist/chessboard-1.0.0.min.js"></script>
+    <script src="chess.js"></script>
+</body>
+</html> 

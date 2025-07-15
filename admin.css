@@ -1,0 +1,202 @@
+body {
+    background: linear-gradient(135deg, #1a1a1a, #2c3e50);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+    color: #333;
+}
+
+.admin-container {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    max-width: 500px; /* Adjust as needed */
+    text-align: center;
+}
+
+.admin-container h2 {
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.form-group {
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #555;
+}
+
+.form-group input[type="text"],
+.form-group input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+    box-sizing: border-box;
+}
+
+.button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+    background-color: #3498db;
+    color: white;
+    margin-top: 10px;
+}
+
+.button:hover {
+    background-color: #2980b9;
+}
+
+.error-message {
+    color: #e74c3c;
+    margin-top: 10px;
+}
+
+.hidden {
+    display: none;
+}
+
+.dashboard-section {
+    text-align: left;
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid #eee;
+}
+
+.dashboard-section h3 {
+    margin-top: 0;
+    margin-bottom: 15px;
+    color: #3498db;
+}
+
+.tournament-options label {
+    margin-right: 15px;
+    font-weight: normal;
+}
+
+#playersToRank {
+    margin-top: 15px;
+}
+
+#playersToRank .player-ranking-entry {
+    background-color: #f9f9f9;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    border: 1px solid #eee;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#playersToRank .player-ranking-entry input[type="number"] {
+    width: 80px;
+    padding: 5px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+}
+
+#online-tournament-setup .form-group select {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 0.9rem;
+    cursor: pointer;
+}
+
+#selectedPlayerDetails {
+    margin-top: 15px;
+    padding: 15px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    text-align: left;
+    border: 1px solid #eee;
+}
+
+#selectedPlayerDetails p {
+    margin-bottom: 5px;
+    color: #555;
+    font-size: 0.95rem;
+}
+
+#selectedPlayerDetails p strong {
+     color: #333;
+}
+
+#sendLinkButton {
+    margin-top: 20px;
+}
+
+#logoutButton {
+    background-color: #e74c3c;
+    margin-top: 30px;
+}
+
+#logoutButton:hover {
+    background-color: #c0392b;
+}
+
+@media (max-width: 768px) {
+    /* Responsive styles here if needed */
+}
+
+.admin-player-entry {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #f9f9f9;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 8px;
+    border: 1px solid #eee;
+}
+.remove-admin-player-btn {
+    background: #e74c3c;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 5px 12px;
+    cursor: pointer;
+    font-weight: bold;
+}
+.remove-admin-player-btn:hover {
+    background: #c0392b;
+}
+
+.back-to-home {
+    margin-bottom: 10px;
+    text-align: left;
+}
+.back-to-home a {
+    display: inline-block;
+    background: #3498db;
+    color: #fff;
+    padding: 8px 18px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1rem;
+    transition: background 0.2s, color 0.2s;
+    box-shadow: 0 2px 6px rgba(52, 152, 219, 0.08);
+}
+.back-to-home a:hover {
+    background: #2980b9;
+    color: #fff;
+    text-decoration: none;
+} 

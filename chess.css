@@ -1,0 +1,633 @@
+/* Modern Chess Game Styles */
+:root {
+    --primary-color: #2c3e50;
+    --secondary-color: #3498db;
+    --accent-color: #e74c3c;
+    --light-color: #ecf0f1;
+    --dark-color: #2c3e50;
+    --success-color: #2ecc71;
+    --warning-color: #f1c40f;
+    --error-color: #e74c3c;
+    --wood-color: #8B4513;
+    --light-wood: #DEB887;
+    --dark-wood: #654321;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+    min-height: 100vh;
+    color: var(--light-color);
+}
+
+.game-container {
+    max-width: 1400px;
+    margin: 20px auto;
+    padding: 20px;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+}
+
+/* Game Info Panel */
+.game-info-panel {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 20px;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 15px;
+    border-radius: 10px;
+    backdrop-filter: blur(10px);
+}
+
+.player-info {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 15px;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.player-info.white-player {
+    border: 2px solid var(--light-color);
+}
+
+.player-info.black-player {
+    border: 2px solid var(--dark-color);
+}
+
+.player-name {
+    font-size: 1.5em;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.player-timer {
+    font-size: 2em;
+    font-family: monospace;
+    margin: 10px 0;
+    padding: 5px 10px;
+    border-radius: 5px;
+    background: rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+}
+
+.player-timer.active-timer {
+    background: rgba(46, 204, 113, 0.3);
+    box-shadow: 0 0 10px rgba(46, 204, 113, 0.5);
+    animation: pulse 1s infinite;
+}
+
+.player-timer.warning {
+    background: rgba(231, 76, 60, 0.3);
+    color: var(--error-color);
+    animation: pulse 0.5s infinite;
+}
+
+.player-rating {
+    font-size: 1.2em;
+    color: var(--warning-color);
+}
+
+/* Game Controls */
+.game-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    justify-content: center;
+}
+
+.control-btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background: var(--secondary-color);
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.control-btn:hover {
+    background: var(--primary-color);
+    transform: translateY(-2px);
+}
+
+.control-btn i {
+    font-size: 1.2em;
+}
+
+/* Main Game Area */
+.game-area {
+    display: grid;
+    grid-template-columns: 1fr 3fr 1fr;
+    gap: 20px;
+    align-items: center;
+}
+
+/* Chessboard Container */
+.chessboard-container {
+    position: relative;
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    background: var(--wood-color);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+}
+
+#board {
+    width: 100%;
+    max-width: 560px;
+    margin: 0 auto;
+}
+
+/* Captured Pieces */
+.captured-pieces {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 15px;
+    border-radius: 8px;
+    min-height: 200px;
+}
+
+.captured-pieces h3 {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.captured-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    justify-content: center;
+}
+
+.captured-container .piece {
+    width: 40px;
+    height: 40px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+/* Game Details Panel */
+.game-details-panel {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 15px;
+    border-radius: 10px;
+    backdrop-filter: blur(10px);
+}
+
+.move-history, .game-status, .rules-panel {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 15px;
+    border-radius: 8px;
+}
+
+.moves-container {
+    max-height: 200px;
+    overflow-y: auto;
+    font-family: monospace;
+}
+
+/* Game Status Styles */
+.status-message {
+    padding: 12px;
+    border-radius: 5px;
+    background: rgba(255, 255, 255, 0.1);
+    margin: 10px 0;
+    transition: all 0.3s ease;
+    text-align: center;
+    font-size: 1.1em;
+    min-height: 20px;
+}
+
+.status-message.game-over {
+    background: rgba(46, 204, 113, 0.2);
+    color: var(--success-color);
+    font-weight: bold;
+    animation: fadeIn 0.5s ease;
+    border: 1px solid var(--success-color);
+}
+
+.game-status {
+    background: rgba(0, 0, 0, 0.2);
+    padding: 15px;
+    border-radius: 8px;
+    margin: 10px 0;
+}
+
+.game-status h3 {
+    color: var(--secondary-color);
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+@keyframes fadeIn {
+    from { 
+        opacity: 0; 
+        transform: translateY(-10px); 
+    }
+    to { 
+        opacity: 1; 
+        transform: translateY(0); 
+    }
+}
+
+/* Modal Result Message Styles */
+.result-message {
+    font-size: 1.3em;
+    margin: 20px 0;
+    padding: 20px;
+    border-radius: 8px;
+    background: rgba(46, 204, 113, 0.1);
+    color: var(--success-color);
+    text-align: center;
+    animation: fadeIn 0.5s ease;
+    border: 1px solid var(--success-color);
+}
+
+.rules-content {
+    font-size: 0.9em;
+    line-height: 1.5;
+}
+
+/* Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    z-index: 1000;
+}
+
+.modal-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: var(--primary-color);
+    padding: 20px;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 500px;
+}
+
+.close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 1.5em;
+    cursor: pointer;
+}
+
+.modal-actions {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.modal-btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.modal-btn:hover {
+    transform: translateY(-2px);
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+    .game-area {
+        grid-template-columns: 1fr;
+    }
+    
+    .captured-pieces {
+        display: none;
+    }
+}
+
+@media (max-width: 768px) {
+    .game-info-panel {
+        grid-template-columns: 1fr;
+    }
+    
+    .game-details-panel {
+        grid-template-columns: 1fr;
+    }
+    
+    .chessboard-container {
+        max-width: 100%;
+    }
+}
+
+/* Animations */
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+.pulse {
+    animation: pulse 1s infinite;
+}
+
+/* Chessboard.js Customizations */
+.square-55d63 {
+    background-color: var(--light-wood);
+}
+
+.black-3c85d {
+    background-color: var(--dark-wood);
+}
+
+.highlight1-32417, .highlight2-9c5d2 {
+    background-color: var(--secondary-color);
+    opacity: 0.7;
+}
+
+.check {
+    background-color: var(--error-color);
+    animation: pulse 1s infinite;
+}
+
+/* Piece Styles */
+.piece {
+    width: 100%;
+    height: 100%;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    transition: transform 0.2s ease;
+}
+
+.piece:hover {
+    transform: scale(1.1);
+}
+
+/* Tournament Setup Panel Styles */
+.tournament-setup-panel {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+/* Tournament Form Styles */
+.tournament-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+}
+
+.player-selection {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.player-select {
+    flex: 1;
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--light-color);
+    min-width: 200px;
+}
+
+.player-select option {
+    background: #333;
+    color: white;
+}
+
+#addSelectedPlayerBtn {
+    padding: 8px 15px;
+    background: var(--secondary-color);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+#addSelectedPlayerBtn:hover {
+    background: var(--primary-color);
+    transform: translateY(-2px);
+}
+
+#startTournamentBtn {
+    padding: 10px 20px;
+    background: var(--success-color);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 10px;
+}
+
+#startTournamentBtn:hover {
+    background: var(--success-hover-color);
+    transform: translateY(-2px);
+}
+
+#playersTable td:last-child {
+    text-align: center;
+}
+
+.remove-player-btn {
+    padding: 4px 8px;
+    background: var(--error-color);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.remove-player-btn:hover {
+    background: var(--error-hover-color);
+}
+
+#registeredNamesList {
+    background: rgba(0, 0, 0, 0.2);
+    padding: 15px;
+    border-radius: 5px;
+    margin: 10px 0;
+    font-size: 0.9em;
+    line-height: 1.5;
+}
+
+#registeredNamesList strong {
+    color: var(--secondary-color);
+    display: block;
+    margin-bottom: 10px;
+}
+
+.registered-players {
+    background: rgba(0, 0, 0, 0.2);
+    padding: 15px;
+    border-radius: 5px;
+    margin-top: 20px;
+}
+
+.registered-players h3 {
+    color: var(--secondary-color);
+    margin-bottom: 15px;
+}
+
+#playersTable {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+#playersTable th, #playersTable td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+#playersTable th {
+    color: var(--secondary-color);
+    font-weight: bold;
+}
+
+/* Game Statistics Styles */
+.game-stats {
+    background: rgba(0, 0, 0, 0.2);
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.game-stats h3 {
+    color: var(--secondary-color);
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.stats-content {
+    display: flex;
+    justify-content: space-around;
+    gap: 20px;
+}
+
+.white-stats, .black-stats {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 15px;
+    border-radius: 5px;
+    flex: 1;
+    text-align: center;
+}
+
+.white-stats h4 {
+    color: var(--light-color);
+    margin-bottom: 10px;
+}
+
+.black-stats h4 {
+    color: var(--dark-color);
+    margin-bottom: 10px;
+}
+
+.white-stats p, .black-stats p {
+    margin: 5px 0;
+    font-size: 1.1em;
+}
+
+.white-wins, .black-wins {
+    color: var(--success-color);
+    font-weight: bold;
+}
+
+.white-losses, .black-losses {
+    color: var(--error-color);
+    font-weight: bold;
+}
+
+/* Tournament Player Stats */
+#playersTable {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+#playersTable th, #playersTable td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+#playersTable th {
+    background: rgba(0, 0, 0, 0.2);
+    color: var(--secondary-color);
+}
+
+#playersTable tr:hover {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+#playersTable td:nth-child(3) {
+    color: var(--success-color);
+}
+
+#playersTable td:nth-child(4) {
+    color: var(--error-color);
+}
+
+/* Registered Players List Styles */
+.registered-player-item {
+    padding: 8px;
+    margin: 4px 0;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.registered-player-item:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateX(5px);
+}
+
+.registered-player-item.selected {
+    background: rgba(52, 152, 219, 0.3);
+    border-left: 3px solid var(--secondary-color);
+}
+
+#registeredNamesList {
+    max-height: 200px;
+    overflow-y: auto;
+    margin: 10px 0;
+    padding: 10px;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+}
+
+#registeredNamesList strong {
+    display: block;
+    margin-bottom: 10px;
+    color: var(--secondary-color);
+}

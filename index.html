@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chess Tournament</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #1a1a1a, #2c3e50);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .header {
+            text-align: center;
+            padding: 2rem 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .header h1 {
+            color: #fff;
+            font-size: 3rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 1.5rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .nav-button {
+            padding: 1rem 2rem;
+            font-size: 1.1rem;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: #3498db;
+            color: white;
+            text-transform: uppercase;
+            font-weight: bold;
+            letter-spacing: 1px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-button:hover {
+            transform: translateY(-2px);
+            background: #2980b9;
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .nav-button:active {
+            transform: translateY(0);
+        }
+
+        @media (max-width: 600px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .nav-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .nav-button {
+                width: 80%;
+            }
+        }
+
+        /* Styles for Registered Players Section and Controls */
+        .container {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 900px; /* Increased max-width for table */
+            margin-top: 30px; /* Space from header */
+            margin-bottom: 30px;
+            overflow-x: auto; /* Add scroll for smaller screens */
+        }
+
+        .container h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        /* Statistics Sections */
+        .statistics-section {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .stat-card {
+            background-color: #f9f9f9;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            flex: 1;
+            min-width: 180px; /* Minimum width for cards */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        .stat-card h4 {
+            margin-top: 0;
+            color: #555;
+            font-size: 1rem;
+            margin-bottom: 5px;
+        }
+
+        .stat-card p {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #3498db;
+        }
+
+        /* Controls Section */
+        .controls-section {
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eee;
+        }
+
+        #playerSearch {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1rem;
+            box-sizing: border-box;
+            margin-bottom: 15px;
+        }
+
+        .filter-sort {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-bottom: 15px;
+        }
+
+        .filter-sort select {
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 0.9rem;
+            cursor: pointer;
+        }
+
+        .action-buttons {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .action-buttons .button {
+            margin: 0 10px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+            color: #333;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+        }
+
+        tbody tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        tbody tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        /* Back to Home link style */
+        .back-to-home {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .back-to-home a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 1.1rem;
+            transition: color 0.3s ease;
+        }
+
+        .back-to-home a:hover {
+            color: #3498db;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .nav-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .nav-button {
+                width: 80%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <h1>Chess Tournament</h1>
+        <div class="nav-buttons">
+            <button class="nav-button" onclick="location.href='#'">Home</button>
+            <button class="nav-button" onclick="location.href='register.html'">Register</button>
+            <button class="nav-button" onclick="location.href='chess.html'">Chess</button>
+            <button class="nav-button" onclick="location.href='admin.html'">Admin Login</button>
+        </div>
+    </header>
+
+    <main class="container">
+        <h2>Tournament Statistics</h2>
+        <div class="statistics-section">
+            <div class="stat-card">
+                <h4>Total Players</h4>
+                <p id="totalPlayers">0</p>
+            </div>
+            <div class="stat-card">
+                <h4>Average Rating</h4>
+                <p id="averageRating">N/A</p>
+            </div>
+            <div class="stat-card">
+                <h4>Top College</h4>
+                <p id="topCollege">No colleges registered</p>
+            </div>
+            <div class="stat-card">
+                <h4>Highest Rated Player</h4>
+                <p id="highestRatedPlayer">N/A</p>
+            </div>
+        </div>
+
+        <div class="controls-section">
+            <input type="text" id="playerSearch" placeholder="Search by name, college, or UUCM number">
+            <div class="filter-sort">
+                <select id="sortBy">
+                    <option value="name">Sort by Name</option>
+                    <option value="ranking">Sort by Ranking</option>
+                    <option value="rating">Sort by Rating</option>
+                </select>
+                <select id="filterCollege">
+                    <option value="all">All Colleges</option>
+                    <!-- College options will be added by index.js -->
+                </select>
+                <select id="filterRating">
+                    <option value="all">All Ratings</option>
+                    <!-- Rating options will be added by index.js -->
+                </select>
+            </div>
+            <div class="action-buttons">
+                <button id="exportCsvButton" class="button">Export to CSV</button>
+                <button id="printListButton" class="button">Print List</button>
+            </div>
+        </div>
+
+        <h2>Registered Players</h2>
+        <div id="registeredPlayersList">
+            <!-- Player table will be loaded here by index.js -->
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>UUCM No.</th>
+                        <th>D.O.B.</th>
+                        <th>College</th>
+                        <th>Branch</th>                       
+                        <th>Chess Rating</th>
+                    </tr>
+                </thead>
+                <tbody id="playerTableBody">
+                    <!-- Player rows will be added here by index.js -->
+                </tbody>
+            </table>
+        </div>
+
+        <h2>Chess Match History</h2>
+        <div class="match-history-section">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Player 1</th>
+                        <th>Player 2</th>
+                        <th>Winner</th>
+                        <th>Loser</th>
+                        <th>Status</th>
+                    </tr>
+                 
+                </tr>
+                </thead>
+                <tbody id="matchHistoryTableBody">
+                    <!-- Match rows will be inserted here -->
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+    <script src="index.js"></script>
+</body>
+</html> 

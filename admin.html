@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login</title>
+    <link rel="stylesheet" href="admin.css">
+    <link rel="stylesheet" href="index.css"> <!-- Optional: for shared styles -->
+</head>
+<body>
+    <div class="admin-container">
+        <div class="back-to-home" style="text-align:left; margin-bottom: 10px;">
+            <a href="index.html">&lt; Back to Home</a>
+        </div>
+        <div id="login-section">
+            <h2>Admin Login</h2>
+            <form id="adminLoginForm">
+                <div class="form-group">
+                    <label for="adminUsername">Username:</label>
+                    <input type="text" id="adminUsername" name="adminUsername" value="admin" required>
+                </div>
+                <div class="form-group">
+                    <label for="adminPassword">Password:</label>
+                    <input type="password" id="adminPassword" name="adminPassword" value="admin123" required>
+                </div>
+                <button type="submit" class="button">Login</button>
+                <p id="loginError" class="error-message"></p>
+            </form>
+            
+            <!-- Debug section -->
+            <div style="margin-top: 20px; padding: 10px; background: #f8f9fa; border-radius: 5px; font-size: 12px;">
+                <strong>Debug Info:</strong><br>
+                <span id="debugInfo">Loading...</span><br>
+                <button onclick="testConnection()" style="margin-top: 10px; padding: 5px 10px; font-size: 12px;">Test Connection</button>
+            </div>
+        </div>
+
+        <div id="dashboard-section" class="hidden">
+            <h2>Admin Dashboard</h2>
+            <div class="dashboard-section">
+                <h3>Manage Tournaments</h3>
+                <div class="tournament-options">
+                    <label>
+                        <input type="radio" name="tournamentType" value="online"> Online Tournament
+                    </label>
+                    <label>
+                        <input type="radio" name="tournamentType" value="offline"> Offline Tournament
+                    </label>
+                </div>
+                <button id="saveTournamentSettings" class="button">Save Settings</button>
+            </div>
+
+            <div id="online-tournament-setup" class="dashboard-section hidden">
+                <h3>Online Tournament Setup</h3>
+                <div class="form-group">
+                    <label for="playerSelect">Select a Player:</label>
+                    <select id="playerSelect">
+                        <option value="">--Select Player--</option>
+                        <!-- Player names will be loaded here by admin.js -->
+                    </select>
+                </div>
+                <div id="selectedPlayerDetails">
+                    <!-- Selected player details will be displayed here -->
+                </div>
+                <button id="sendLinkButton" class="button">Send Link</button>
+            </div>
+
+            <div class="dashboard-section">
+                <h3>Registered Players</h3>
+                <div id="registeredPlayersAdmin">
+                    <!-- Registered players will be loaded here by admin.js -->
+                </div>
+            </div>
+
+            <button id="logoutButton" class="button">Logout</button>
+        </div>
+    </div>
+
+    <script src="admin.js"></script>
+</body>
+</html> 

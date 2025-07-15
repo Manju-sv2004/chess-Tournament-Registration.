@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        button {
+            background: #007bff;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 5px;
+            display: none;
+        }
+        .success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        .log {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            padding: 10px;
+            margin-top: 20px;
+            border-radius: 5px;
+            font-family: monospace;
+            font-size: 12px;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Admin Login Test</h1>
+        <p>This page tests the admin login functionality directly.</p>
+        
+        <form id="testForm">
+            <div class="form-group">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" value="admin" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" value="admin123" required>
+            </div>
+            <button type="submit">Test Login</button>
+        </form>
+        
+        <div id="result" class="result"></div>
+        
+        <div class="log">
+            <strong>Console Log:</strong>
+            <div id="logOutput"></div>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE = 'http://localhost:3001/api';
+        const logOutput = document.getElementById('logOutput');
+        const resultDiv = document.getElementById('result');
+        
+        function log(message) {
+            const timestamp = new Date().toLocaleTimeString();
+            logOutput.innerHTML += `[${timestamp}] ${message}<br>`;
+            logOutput.scrollTop = logOutput.scrollHeight;
+            console.log(message);
+        }
+        
+        function showResult(message, isSuccess) {
+            resultDiv.textContent = message;
+            resultDiv.className = `result ${isSuccess ? 'success' : 'error'}`;
+            resultDiv.style.display = 'block';
+        }
+        
+        document.getElementById('testForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            
+            log('Starting login test...');
+            log(`Username: ${username}`);
+            log(`Password length: ${password.length}`);
+            log(`API URL: ${API_BASE}/admin/login`);
+            
+            try {
+                log('Sending fetch request...');
+                
+                const response = await fetch(`${API_BASE}/admin/login`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ username, password })
+                });
+                
+                log(`Response status: ${response.status}`);
+                log(`Response ok: ${response.ok}`);
+                
+                const data = await response.json();
+                log(`Response data: ${JSON.stringify(data, null, 2)}`);
+                
+                if (response.ok && data.success) {
+                    log('✅ Login successful!');
+                    showResult('Login successful! Admin credentials are working correctly.', true);
+                } else {
+                    log('❌ Login failed');
+                    showResult(`Login failed: ${data.error || 'Unknown error'}`, false);
+                }
+            } catch (error) {
+                log(`❌ Network error: ${error.message}`);
+                showResult(`Network error: ${error.message}`, false);
+            }
+        });
+        
+        // Test API connectivity on page load
+        window.addEventListener('load', async () => {
+            log('Page loaded, testing API connectivity...');
+            
+            try {
+                const response = await fetch(`${API_BASE}/players`);
+                log(`API connectivity test - Status: ${response.status}`);
+                
+                if (response.ok) {
+                    log('✅ API is accessible');
+                } else {
+                    log('❌ API returned error status');
+                }
+            } catch (error) {
+                log(`❌ API connectivity failed: ${error.message}`);
+            }
+        });
+    </script>
+</body>
+</html> 

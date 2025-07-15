@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Player Registration</title>
+    <link rel="stylesheet" href="register.css">
+    <link rel="stylesheet" href="index.css"> <!-- Optional: Link index.css for shared styles -->
+</head>
+<body>
+    <div class="registration-container">
+        <div class="back-to-home" style="text-align:left; margin-bottom: 10px;">
+            <a href="index.html">&lt; Back to Home</a>
+        </div>
+        <h2>Player Registration</h2>
+        <form id="registrationForm">
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="fullName">Full Name: *</label>
+                    <input type="text" id="fullName" name="fullName" placeholder="Enter your full name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email: *</label>
+                    <input type="email" id="email" name="email" placeholder="Enter your email address" required>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="phoneNumber">Phone Number: *</label>
+                    <input type="tel" id="phoneNumber" name="phoneNumber" placeholder="Enter 10-digit phone number" required>
+                </div>
+                <div class="form-group">
+                    <label for="uucmNumber">UUCM Number: *</label>
+                    <input type="text" id="uucmNumber" name="uucmNumber" placeholder="Enter your UUCM number" required>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="dateOfBirth">Date of Birth: *</label>
+                    <input type="text" id="dateOfBirth" name="dateOfBirth" placeholder="dd-mm-yyyy" required>
+                </div>
+                <div class="form-group">
+                    <label for="collegeName">College Name: *</label>
+                    <input type="text" id="collegeName" name="collegeName" placeholder="Enter your college name" required>
+                </div>
+                    
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="branchName">Branch Name: *</label>
+                    <input type="text" id="branchName" name="branchName" placeholder="Enter your branch name" required>
+                </div>
+                <div class="form-group">
+                    <label for="chessRating">Chess Rating:</label>
+                    <input type="number" id="chessRating" name="chessRating" placeholder="Enter your chess rating (optional)">
+                </div>
+            </div>
+            
+            <div class="form-buttons">
+                <button type="submit" class="button register-button">Register</button>
+                <button type="button" class="button clear-button">Clear Form</button>
+                <button type="button" class="button cancel-button">Cancel</button>
+            </div>
+        </form>
+    </div>
+
+    <script src="register.js"></script>
+</body>
+</html> 
