@@ -34,8 +34,8 @@ A web-based chess tournament management system with admin dashboard and player r
    npm run setup-admin
    ```
    This creates the default admin account:
-   - Username: `admin`
-   - Password: `admin123`
+   - Username: 
+   - Password: 
 
 ## Usage
 
